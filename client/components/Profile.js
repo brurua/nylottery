@@ -4,17 +4,18 @@ import axios from 'axios';
 
 const Profile = (props) => {
   const [winnNumbers, setWinnNumbers] = useState('');
-  // const [drawDate, setDrawDate] = useState('');
+  const [numberOfDraw, setNumberOfDraw] = useState(2);
+  // const [numberOfDrawB, setNumberOfDrawB] = useState(2);
 
   useEffect(() => {
     axios({
       method: 'get',
       url: 'https://data.ny.gov/resource/d6yy-54nr.json',
     }).then((data) => {
-      setWinnNumbers(data.data.slice(0, 10));
-      console.log(data.data.slice(0, 10));
+      setWinnNumbers(data.data.slice(0, numberOfDraw));
+      // console.log(data.data.slice(0, 10));
     });
-  }, []);
+  }, [numberOfDraw]);
 
   let cachedName = props.location.state.propName;
   let newName = '';
@@ -32,15 +33,29 @@ const Profile = (props) => {
       </li>
     );
   }
+
   return (
     <div>
-      <h1>Welcome {newName}</h1>
-      <div>{numbersList}</div>
       <Link to={`/`}>
         <button type="button" className="btnSecondary">
           Sign Out
         </button>
       </Link>
+      <h1>Welcome {newName}</h1>
+      <label htmlFor="Draw">Display Draw</label>
+      <form>
+        <input
+          id="draw"
+          // value={' '}
+          placeholder="Last Draw's"
+          onChange={(e) => {
+            setNumberOfDraw(e.target.value);
+          }}
+        ></input>
+        {/* <button onClick={changDraw}>Draw Display</button> */}
+      </form>
+      <div className="column">{numbersList}</div>
+      <div className="column">ak tsava sia</div>
     </div>
   );
 };
