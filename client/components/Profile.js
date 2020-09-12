@@ -41,7 +41,15 @@ const Profile = (props) => {
           Sign Out
         </button>
       </Link>
-      <h1>Welcome {newName}</h1>
+      <div className="headOfProfile">
+        <h1>Welcome {newName}</h1>
+        <img
+          id="pimage"
+          src="https://vidyakoshtest.nic.in/theme/enlightlite/pix/img_avatar.png"
+          alt="img_avatar"
+          style={{ width: '100px' }}
+        ></img>
+      </div>
       <label htmlFor="Draw">Display Draw</label>
       <form>
         <input
@@ -55,7 +63,16 @@ const Profile = (props) => {
         {/* <button onClick={changDraw}>Draw Display</button> */}
       </form>
       <div className="column">{numbersList}</div>
-      <div className="column">ak tsava sia</div>
+
+      <div className="column">
+        <label htmlFor="numInput">Create Lottery Ticket</label>
+        <input id="num1"></input>
+        <input id="num2"></input>
+        <input id="num3"></input>
+        <input id="num4"></input>
+        <input id="num5"></input>
+        <input id="num6"></input>
+      </div>
     </div>
   );
 };

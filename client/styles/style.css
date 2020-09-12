@@ -1,14 +1,47 @@
 /* body {
   background-color: red;
 } */
+.createUserFields {
+  width: 100%;
+  display: flex;
+  margin-bottom: 0.2rem;
+}
+
+.createUserFields label {
+  min-width: 8rem;
+  width: 9rem;
+}
 .column {
   float: left;
   width: 50%;
 }
 
+.column input {
+  /* float: left; */
+  border-radius: 50%;
+  margin: 2mm;
+  height: 10mm;
+  width: 10mm;
+  background-color: aqua;
+  font-weight: bold;
+  font-size: 6mm;
+  text-align: center;
+}
+#num6 {
+  background-color: gold;
+}
+.headOfProfile {
+  display: flex;
+  align-items: center;
+}
+#pimage {
+  padding-left: 10mm;
+  /* display: flex;
+  align-items: flex-end; */
+}
 /* Clear floats after the columns */
-.row:after {
+/* .row:after {
   content: '';
   display: table;
   clear: both;
-}
+} */
