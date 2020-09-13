@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import * as d3 from 'd3';
 import axios from 'axios';
 
 const Profile = (props) => {
   const [winnNumbers, setWinnNumbers] = useState('');
   const [numberOfDraw, setNumberOfDraw] = useState(2);
-  // const [numberOfDrawB, setNumberOfDrawB] = useState(2);
+  // const [rawNumber1, setRawNumber1] = useState('');
 
   useEffect(() => {
     axios({
@@ -25,7 +26,13 @@ const Profile = (props) => {
     newName = cachedName[0].toUpperCase() + restString;
   }
   let numbersList = [];
+
+  let numbers1 = [];
   for (let i = 0; i < winnNumbers.length; i++) {
+    const [number1, number2, number3, number4, number5, number6] = winnNumbers[
+      i
+    ].winning_numbers.split(' ');
+    numbers1.push(+number1);
     numbersList.push(
       <li key={`win${i}`}>
         {winnNumbers[i].winning_numbers} -{' '}
@@ -33,6 +40,39 @@ const Profile = (props) => {
       </li>
     );
   }
+
+  const myRef = React.createRef();
+
+  useEffect(() => {
+    // accessToRef.style('background-color', 'green');
+    let list = document.getElementById('chart');
+    list.innerHTML = '';
+    const w = numbers1.length * 70;
+
+    const h = 400;
+    const accessToRef = d3
+      .select(myRef.current)
+      .append('svg')
+      .attr('width', w)
+      .attr('height', h)
+      .style('background-color', 'green')
+      .style('padding', 10)
+      .style('margin-left', 50);
+
+    accessToRef
+      .selectAll('rect')
+      .data(numbers1)
+      .enter()
+      .append('rect')
+      .attr('x', (d, i) => i * 70)
+      .attr('y', (d, i) => h - 10 * d)
+      .attr('width', 40)
+      .attr('height', (d, i) => d * 10)
+      .attr('fill', 'tomato');
+  }, [numbers1]);
+
+  const bbb = [];
+  bbb.push(<div id="chart" ref={myRef}></div>);
 
   return (
     <div>
@@ -50,6 +90,7 @@ const Profile = (props) => {
           style={{ width: '100px' }}
         ></img>
       </div>
+      <div>{bbb}</div>
       <label htmlFor="Draw">Display Draw</label>
       <form>
         <input
