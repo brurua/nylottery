@@ -37,11 +37,12 @@ app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist', 'index.html'));
 });
 // catch-all route handler for any requests to an unknown route
 app.get('*', (req, res) => {
+  // res.sendFile(path.join(__dirname, '../dist', 'index.html'));
   res.sendStatus(404).send('Sorry, cant find that');
 });
 
