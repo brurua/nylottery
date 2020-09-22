@@ -15,6 +15,18 @@
   float: left;
   width: 50%;
 }
+.barChart {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-content: space-around;
+}
+
+.barChartL {
+  color: red;
+  margin-right: auto;
+  margin-left: auto;
+}
 
 .column input {
   /* float: left; */

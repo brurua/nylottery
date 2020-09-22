@@ -31,14 +31,23 @@ const Profile = (props) => {
   let numbers1 = [];
   let numbers2 = [];
   let numbers3 = [];
+  let numbers4 = [];
+  let numbers5 = [];
+  let numbers6 = [];
   let numbersObject = {};
   let numbersObject2 = {};
   let numbersObject3 = {};
+  let numbersObject4 = {};
+  let numbersObject5 = {};
+  let numbersObject6 = {};
   // console.log(numbersObject2);
-  let data = [];
+  let data1 = [];
   let data2 = [];
   let data3 = [];
-  console.log(data3);
+  let data4 = [];
+  let data5 = [];
+  let data6 = [];
+  console.log(data4);
   for (let i = 0; i < winnNumbers.length; i++) {
     const [number1, number2, number3, number4, number5, number6] = winnNumbers[
       i
@@ -46,6 +55,10 @@ const Profile = (props) => {
     numbers1.push(+number1);
     numbers2.push(+number2);
     numbers3.push(+number3);
+    numbers4.push(+number4);
+    numbers5.push(+number5);
+    numbers6.push(+number6);
+    // console.log(numbersObject4);
     numbersList.push(
       <li key={`win${i}`}>
         {winnNumbers[i].winning_numbers} -{' '}
@@ -63,8 +76,17 @@ const Profile = (props) => {
   numbers3.forEach(function (x) {
     numbersObject3[x] = (numbersObject3[x] || 0) + 1;
   });
+  numbers4.forEach(function (x) {
+    numbersObject4[x] = (numbersObject4[x] || 0) + 1;
+  });
+  numbers5.forEach(function (x) {
+    numbersObject5[x] = (numbersObject5[x] || 0) + 1;
+  });
+  numbers6.forEach(function (x) {
+    numbersObject6[x] = (numbersObject6[x] || 0) + 1;
+  });
   for (const key in numbersObject) {
-    data.push({ letter: key, frequency: numbersObject[key] });
+    data1.push({ letter: key, frequency: numbersObject[key] });
   }
   for (const key in numbersObject2) {
     data2.push({ letter: key, frequency: numbersObject2[key] });
@@ -72,12 +94,19 @@ const Profile = (props) => {
   for (const key in numbersObject3) {
     data3.push({ letter: key, frequency: numbersObject3[key] });
   }
+  for (const key in numbersObject4) {
+    data4.push({ letter: key, frequency: numbersObject4[key] });
+  }
+  for (const key in numbersObject5) {
+    data5.push({ letter: key, frequency: numbersObject5[key] });
+  }
+  for (const key in numbersObject6) {
+    data6.push({ letter: key, frequency: numbersObject6[key] });
+  }
 
-  const myRef = React.createRef();
-
-  useEffect(() => {
-    // accessToRef.style('background-color', 'green');
-    let list = document.getElementById('chart');
+  // const myRef = React.createRef();
+  const barChart1 = useEffect(() => {
+    let list = document.getElementById('barChart1');
     list.innerHTML = '';
 
     // const w = numbers1.length * 70;
@@ -116,7 +145,8 @@ const Profile = (props) => {
     //   .text((d) => d.value);
     //Setting up of our svg with proper calculations
     var svg = d3
-      .select(myRef.current)
+      // .select(myRef.current) // It was in case of >>     // accessToRef.style('background-color', 'green'); line 79
+      .select(list)
       .append('svg')
       .attr('width', 500)
       .attr('height', 300);
@@ -140,13 +170,13 @@ const Profile = (props) => {
     var y = d3.scaleLinear().rangeRound([height, 0]);
 
     x.domain(
-      data.map(function (d) {
+      data1.map(function (d) {
         return d.letter;
       })
     );
     y.domain([
       0,
-      d3.max(data, function (d) {
+      d3.max(data1, function (d) {
         return +d.frequency;
       }),
     ]);
@@ -167,7 +197,7 @@ const Profile = (props) => {
 
     //for rectangles
     g.selectAll('.bar')
-      .data(data)
+      .data(data1)
       .enter()
       .append('rect')
       .attr('class', 'bar')
@@ -183,7 +213,7 @@ const Profile = (props) => {
       });
 
     g.selectAll('.text')
-      .data(data)
+      .data(data1)
       .enter()
       .append('text')
       // .style('font-weight', 'bold')
@@ -201,14 +231,14 @@ const Profile = (props) => {
   }, [numbers1]);
 
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  const myRef2 = React.createRef();
-
-  useEffect(() => {
-    let list = document.getElementById('chart2');
+  // const myRef2 = React.createRef();
+  const barChart2 = useEffect(() => {
+    let list = document.getElementById('barChart2');
     list.innerHTML = '';
 
     var svg = d3
-      .select(myRef2.current)
+      // .select(myRef2.current)
+      .select(list)
       .append('svg')
       .attr('width', 500)
       .attr('height', 300);
@@ -296,14 +326,13 @@ const Profile = (props) => {
   }, [numbers2]);
 
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  const myRef3 = React.createRef();
-
-  useEffect(() => {
-    let list = document.getElementById('chart3');
+  // const myRef3 = React.createRef();
+  const barChart3 = useEffect(() => {
+    let list = document.getElementById('barChart3');
     list.innerHTML = '';
 
     var svg = d3
-      .select(myRef3.current)
+      .select(list)
       .append('svg')
       .attr('width', 500)
       .attr('height', 300);
@@ -391,121 +420,291 @@ const Profile = (props) => {
   }, [numbers3]);
 
   //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  const myRef4 = React.createRef();
+  const barChart4 = useEffect(() => {
+    let list = document.getElementById('barChart4');
+    list.innerHTML = '';
 
-  // useEffect(() => {
-  //   let list = document.getElementById('chart4');
-  //   list.innerHTML = '';
+    var svg = d3
+      .select(list)
+      .append('svg')
+      .attr('width', 500)
+      .attr('height', 300);
+    var margin = {
+      top: 40,
+      right: 20,
+      bottom: 40,
+      left: 40,
+    };
+    var width = svg.attr('width') - margin.left - margin.right;
+    var height = svg.attr('height') - margin.top - margin.bottom;
 
-  //   const accessToRef = d3.select(myRef4.current).append('svg');
+    //Plotting our base area in svg in which chart will be shown
+    var g = svg
+      .append('g')
+      .style('font-weight', 'bold')
+      // .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-  //   //   .select(myRef3.current)
-  //   //   .append('svg')
-  //   //   .attr('width', 500)
-  //   //   .attr('height', 300);
-  //   // var margin = {
-  //   //   top: 40,
-  //   //   right: 20,
-  //   //   bottom: 40,
-  //   //   left: 40,
-  //   // };
-  //   // var width = svg.attr('width') - margin.left - margin.right;
-  //   // var height = svg.attr('height') - margin.top - margin.bottom;
+    //X and Y scaling
+    var x = d3.scaleBand().rangeRound([0, width]).padding(0.1);
+    var y = d3.scaleLinear().rangeRound([height, 0]);
 
-  //   // //Plotting our base area in svg in which chart will be shown
-  //   // var g = svg
-  //   //   .append('g')
-  //   //   .style('font-weight', 'bold')
-  //   //   // .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-  //   //   .attr('transform', `translate(${margin.left}, ${margin.top})`);
+    x.domain(
+      data4.map(function (d) {
+        return d.letter;
+      })
+    );
+    y.domain([
+      0,
+      d3.max(data4, function (d) {
+        return +d.frequency;
+      }),
+    ]);
 
-  //   // //X and Y scaling
-  //   // var x = d3.scaleBand().rangeRound([0, width]).padding(0.1);
-  //   // var y = d3.scaleLinear().rangeRound([height, 0]);
+    //Final Plotting
 
-  //   // x.domain(
-  //   //   data3.map(function (d) {
-  //   //     return d.letter;
-  //   //   })
-  //   // );
-  //   // y.domain([
-  //   //   0,
-  //   //   d3.max(data3, function (d) {
-  //   //     return +d.frequency;
-  //   //   }),
-  //   // ]);
+    //for x axis
+    g.append('g')
+      .call(d3.axisBottom(x))
+      .attr('transform', 'translate(0,' + height + ')');
 
-  //   // //Final Plotting
+    //for y axis
+    g.append('g')
+      .call(d3.axisLeft(y))
+      .append('text')
+      // .attr('transform', 'rotate(-90)')
+      .attr('text-anchor', 'end');
 
-  //   // //for x axis
-  //   // g.append('g')
-  //   //   .call(d3.axisBottom(x))
-  //   //   .attr('transform', 'translate(0,' + height + ')');
+    //for rectangles
+    g.selectAll('.bar')
+      .data(data4)
+      .enter()
+      .append('rect')
+      .attr('class', 'bar')
+      .attr('x', function (d) {
+        return x(d.letter);
+      })
+      .attr('y', function (d) {
+        return y(d.frequency);
+      })
+      .attr('width', x.bandwidth())
+      .attr('height', function (d) {
+        return height - y(d.frequency);
+      });
 
-  //   // //for y axis
-  //   // g.append('g')
-  //   //   .call(d3.axisLeft(y))
-  //   //   .append('text')
-  //   //   // .attr('transform', 'rotate(-90)')
-  //   //   .attr('text-anchor', 'end');
+    g.selectAll('.text')
+      .data(data4)
+      .enter()
+      .append('text')
+      .attr('dy', '.75em')
+      .attr('y', function (d) {
+        return y(d.frequency) - 16;
+      })
+      .attr('x', function (d) {
+        return x(d.letter) + x.bandwidth() / 2;
+      })
+      .attr('text-anchor', 'middle')
+      .text(function (d) {
+        return d.frequency;
+      });
+  }, [numbers4]);
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const barChart5 = useEffect(() => {
+    let list = document.getElementById('barChart5');
+    list.innerHTML = '';
 
-  //   //for rectangles
-  //   accessToRef
-  //     .selectAll('circle')
-  //     .data(data3)
-  //     .enter()
-  //     .append('circle')
-  //     .style('stroke', 'gray')
-  //     .style('fill', 'black')
-  //     .attr('r', 40)
-  //     .attr('cx', 50)
-  //     .attr('cy', 20);
-  //   // .attr('x', function (d) {
-  //   //   return x(d.letter);
-  //   // })
-  //   // .attr('y', function (d) {
-  //   //   return y(d.frequency);
-  //   // })
-  //   // .attr('width', x.bandwidth())
-  //   // .attr('height', function (d) {
-  //   //   return height - y(d.frequency);
-  //   // });
+    var svg = d3
+      .select(list)
+      .append('svg')
+      .attr('width', 500)
+      .attr('height', 300);
+    var margin = {
+      top: 40,
+      right: 20,
+      bottom: 40,
+      left: 40,
+    };
+    var width = svg.attr('width') - margin.left - margin.right;
+    var height = svg.attr('height') - margin.top - margin.bottom;
 
-  //   // g.selectAll('.text')
-  //   //   .data(data3)
-  //   //   .enter()
-  //   //   .append('text')
-  //   //   // .style('font-weight', 'bold')
-  //   //   .attr('dy', '.75em')
-  //   //   .attr('y', function (d) {
-  //   //     // console.log(d.frequency);
-  //   //     // console.log(y);
-  //   //     return y(d.frequency) - 16;
-  //   //   })
-  //   //   .attr('x', function (d) {
-  //   //     return x(d.letter) + x.bandwidth() / 2;
-  //   //   })
-  //   //   .attr('text-anchor', 'middle')
-  //   //   .text(function (d) {
-  //   //     return d.frequency;
-  //   //   });
-  // }, [numbers3]);
-  useEffect(() => {
-    let list = document.getElementById('chart4');
+    //Plotting our base area in svg in which chart will be shown
+    var g = svg
+      .append('g')
+      .style('font-weight', 'bold')
+      // .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+    //X and Y scaling
+    var x = d3.scaleBand().rangeRound([0, width]).padding(0.1);
+    var y = d3.scaleLinear().rangeRound([height, 0]);
+
+    x.domain(
+      data5.map(function (d) {
+        return d.letter;
+      })
+    );
+    y.domain([
+      0,
+      d3.max(data5, function (d) {
+        return +d.frequency;
+      }),
+    ]);
+
+    //Final Plotting
+
+    //for x axis
+    g.append('g')
+      .call(d3.axisBottom(x))
+      .attr('transform', 'translate(0,' + height + ')');
+
+    //for y axis
+    g.append('g')
+      .call(d3.axisLeft(y))
+      .append('text')
+      // .attr('transform', 'rotate(-90)')
+      .attr('text-anchor', 'end');
+
+    //for rectangles
+    g.selectAll('.bar')
+      .data(data5)
+      .enter()
+      .append('rect')
+      .attr('class', 'bar')
+      .attr('x', function (d) {
+        return x(d.letter);
+      })
+      .attr('y', function (d) {
+        return y(d.frequency);
+      })
+      .attr('width', x.bandwidth())
+      .attr('height', function (d) {
+        return height - y(d.frequency);
+      });
+
+    g.selectAll('.text')
+      .data(data5)
+      .enter()
+      .append('text')
+      .attr('dy', '.75em')
+      .attr('y', function (d) {
+        return y(d.frequency) - 16;
+      })
+      .attr('x', function (d) {
+        return x(d.letter) + x.bandwidth() / 2;
+      })
+      .attr('text-anchor', 'middle')
+      .text(function (d) {
+        return d.frequency;
+      });
+  }, [numbers5]);
+  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const barChart6 = useEffect(() => {
+    let list = document.getElementById('barChart6');
+    list.innerHTML = '';
+
+    var svg = d3
+      .select(list)
+      .append('svg')
+      .attr('width', 500)
+      .attr('height', 300);
+    var margin = {
+      top: 40,
+      right: 20,
+      bottom: 40,
+      left: 40,
+    };
+    var width = svg.attr('width') - margin.left - margin.right;
+    var height = svg.attr('height') - margin.top - margin.bottom;
+
+    //Plotting our base area in svg in which chart will be shown
+    var g = svg
+      .append('g')
+      .style('font-weight', 'bold')
+      // .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+    //X and Y scaling
+    var x = d3.scaleBand().rangeRound([0, width]).padding(0.1);
+    var y = d3.scaleLinear().rangeRound([height, 0]);
+
+    x.domain(
+      data6.map(function (d) {
+        return d.letter;
+      })
+    );
+    y.domain([
+      0,
+      d3.max(data6, function (d) {
+        return +d.frequency;
+      }),
+    ]);
+
+    //Final Plotting
+
+    //for x axis
+    g.append('g')
+      .call(d3.axisBottom(x))
+      .attr('transform', 'translate(0,' + height + ')');
+
+    //for y axis
+    g.append('g')
+      .call(d3.axisLeft(y))
+      .append('text')
+      // .attr('transform', 'rotate(-90)')
+      .attr('text-anchor', 'end');
+
+    //for rectangles
+    g.selectAll('.bar')
+      .data(data6)
+      .enter()
+      .append('rect')
+      .attr('class', 'bar')
+      .attr('x', function (d) {
+        return x(d.letter);
+      })
+      .attr('y', function (d) {
+        return y(d.frequency);
+      })
+      .attr('width', x.bandwidth())
+      .attr('height', function (d) {
+        return height - y(d.frequency);
+      });
+
+    g.selectAll('.text')
+      .data(data6)
+      .enter()
+      .append('text')
+      .attr('dy', '.75em')
+      .attr('y', function (d) {
+        return y(d.frequency) - 16;
+      })
+      .attr('x', function (d) {
+        return x(d.letter) + x.bandwidth() / 2;
+      })
+      .attr('text-anchor', 'middle')
+      .text(function (d) {
+        return d.frequency;
+      });
+  }, [numbers6]);
+
+  /// #############################################################################################################################################################
+  // //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const pieCircle1 = useEffect(() => {
+    let list = document.getElementById('pieCircle1');
     list.innerHTML = '';
     let width = 600;
     let height = 500;
     let colors = d3.scaleOrdinal(d3.schemeDark2);
     let svg = d3
-      .select(myRef4.current)
+      .select(list)
       .append('svg')
       .attr('width', width)
       .attr('height', height);
-    // .style('background', 'pink');
-    let data = d3
+    let piedata1 = d3
       .pie()
       .sort(null)
-      .value((d) => d.frequency)(data3);
+      .value((d) => d.frequency)(data1);
+
     let segments = d3
       .arc()
       .innerRadius(0)
@@ -514,11 +713,11 @@ const Profile = (props) => {
       .padRadius(50);
     let section = svg
       .append('g')
-      // .attr('text-anchor', 'middle')
       .attr('class', 'gcircle')
       .attr('transform', 'translate(250,250)')
       .selectAll('path')
-      .data(data);
+      .data(piedata1);
+
     section
       .enter()
       .append('path')
@@ -527,7 +726,7 @@ const Profile = (props) => {
     let content = d3
       .selectAll('.gcircle')
       .selectAll('text')
-      .data(data)
+      .data(piedata1)
       .join('text')
       .attr('transform', (d) => `translate(${segments.centroid(d)})`)
       .call((text) =>
@@ -544,39 +743,298 @@ const Profile = (props) => {
           .attr('x', 0)
           .attr('y', '0.7em')
           .attr('fill-opacity', 0.7)
+          .attr('fill', 'white')
           .text((d) => d.data.frequency.toLocaleString())
       );
-    // content
-    //   .enter()
-    //   .append('text')
-    //   .each(function (d) {
-    //     // console.log(d.data);
-    //     let center = segments.centroid(d);
-    //     d3.select(this)
-    //       .attr('text-anchor', 'middle')
-    //       // .attr('y', '-0.4em', center[1])
-    //       .attr('x', center[0])
-    //       .attr('y', center[1])
-    //       .text(d.data.letter)
-    //       .style('fill', 'white')
-    //       .style('font-weight', 'bold')
-    //       .style('font-size', '15px');
-    //   });
-    // content
-    //   .enter()
-    //   .append('text')
-    //   .each(function (d) {
-    //     // console.log(d.data);
-    //     let center = segments.centroid(d);
-    //     d3.select(this)
-    //       .attr('x', center[0])
-    //       .attr('y', center[1])
-    //       .text(d.data.frequency)
-    //       .style('fill', 'green')
-    //       .style('font-weight', 'bold')
-    //       .style('font-size', '15px');
-    //   });
+  }, [numbers1]);
+
+  // //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const pieCircle2 = useEffect(() => {
+    let list = document.getElementById('pieCircle2');
+    list.innerHTML = '';
+    let width = 600;
+    let height = 500;
+    let colors = d3.scaleOrdinal(d3.schemeDark2);
+    let svg = d3
+      .select(list)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height);
+    let piedata2 = d3
+      .pie()
+      .sort(null)
+      .value((d) => d.frequency)(data2);
+    let segments = d3
+      .arc()
+      .innerRadius(0)
+      .outerRadius(200)
+      .padAngle(0.05)
+      .padRadius(50);
+    let section = svg
+      .append('g')
+      .attr('class', 'gcircle2')
+      .attr('transform', 'translate(250,250)')
+      .selectAll('path')
+      .data(piedata2);
+    section
+      .enter()
+      .append('path')
+      .attr('d', segments)
+      .attr('fill', (d) => colors(d.data.letter));
+    let content = d3
+      .selectAll('.gcircle2')
+      .selectAll('text')
+      .data(piedata2)
+      .join('text')
+      .attr('transform', (d) => `translate(${segments.centroid(d)})`)
+      .call((text) =>
+        text
+          .append('tspan')
+          .attr('y', '-0.4em')
+          .attr('font-weight', 'bold')
+          .text((d) => d.data.letter)
+      )
+      .call((text) =>
+        text
+          .filter((d) => d.endAngle - d.startAngle > 0.25)
+          .append('tspan')
+          .attr('x', 0)
+          .attr('y', '0.7em')
+          .attr('fill-opacity', 0.7)
+          .attr('fill', 'white')
+          .text((d) => d.data.frequency.toLocaleString())
+      );
+  }, [numbers2]);
+  // //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const pieCircle3 = useEffect(() => {
+    let list = document.getElementById('pieCircle3');
+    list.innerHTML = '';
+    let width = 500;
+    let height = 500;
+    let colors = d3.scaleOrdinal(d3.schemeDark2);
+    let svg = d3
+      .select(list)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height);
+    let piedata3 = d3
+      .pie()
+      .sort(null)
+      .value((d) => d.frequency)(data3);
+    let segments = d3
+      .arc()
+      .innerRadius(0)
+      .outerRadius(200)
+      .padAngle(0.05)
+      .padRadius(50);
+    let section = svg
+      .append('g')
+      .attr('class', 'gcircle3')
+      .attr('transform', 'translate(250,250)')
+      .selectAll('path')
+      .data(piedata3);
+    section
+      .enter()
+      .append('path')
+      .attr('d', segments)
+      .attr('fill', (d) => colors(d.data.letter));
+    let content = d3
+      .selectAll('.gcircle3')
+      .selectAll('text')
+      .data(piedata3)
+      .join('text')
+      .attr('transform', (d) => `translate(${segments.centroid(d)})`)
+      .call((text) =>
+        text
+          .append('tspan')
+          .attr('y', '-0.4em')
+          .attr('font-weight', 'bold')
+          .text((d) => d.data.letter)
+      )
+      .call((text) =>
+        text
+          .filter((d) => d.endAngle - d.startAngle > 0.25)
+          .append('tspan')
+          .attr('x', 0)
+          .attr('y', '0.7em')
+          .attr('fill-opacity', 0.7)
+          .attr('fill', 'white')
+          .text((d) => d.data.frequency.toLocaleString())
+      );
   }, [numbers3]);
+  // // //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const pieCircle4 = useEffect(() => {
+    let list = document.getElementById('pieCircle4');
+    list.innerHTML = '';
+    let width = 600;
+    let height = 500;
+    let colors = d3.scaleOrdinal(d3.schemeDark2);
+    let svg = d3
+      .select(list)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height);
+    let piedata4 = d3
+      .pie()
+      .sort(null)
+      .value((d) => d.frequency)(data4);
+    let segments = d3
+      .arc()
+      .innerRadius(0)
+      .outerRadius(200)
+      .padAngle(0.05)
+      .padRadius(50);
+    let section = svg
+      .append('g')
+      .attr('class', 'gcircle4')
+      .attr('transform', 'translate(250,250)')
+      .selectAll('path')
+      .data(piedata4);
+    section
+      .enter()
+      .append('path')
+      .attr('d', segments)
+      .attr('fill', (d) => colors(d.data.letter));
+    let content = d3
+      .selectAll('.gcircle4')
+      .selectAll('text')
+      .data(piedata4)
+      .join('text')
+      .attr('transform', (d) => `translate(${segments.centroid(d)})`)
+      .call((text) =>
+        text
+          .append('tspan')
+          .attr('y', '-0.4em')
+          .attr('font-weight', 'bold')
+          .text((d) => d.data.letter)
+      )
+      .call((text) =>
+        text
+          .filter((d) => d.endAngle - d.startAngle > 0.25)
+          .append('tspan')
+          .attr('x', 0)
+          .attr('y', '0.7em')
+          .attr('fill-opacity', 0.7)
+          .attr('fill', 'white')
+          .text((d) => d.data.frequency.toLocaleString())
+      );
+  }, [numbers4]);
+
+  // // //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const pieCircle5 = useEffect(() => {
+    let list = document.getElementById('pieCircle5');
+    list.innerHTML = '';
+    let width = 600;
+    let height = 500;
+    let colors = d3.scaleOrdinal(d3.schemeDark2);
+    let svg = d3
+      .select(list)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height);
+    let piedata5 = d3
+      .pie()
+      .sort(null)
+      .value((d) => d.frequency)(data5);
+    let segments = d3
+      .arc()
+      .innerRadius(0)
+      .outerRadius(200)
+      .padAngle(0.05)
+      .padRadius(50);
+    let section = svg
+      .append('g')
+      .attr('class', 'gcircle5')
+      .attr('transform', 'translate(250,250)')
+      .selectAll('path')
+      .data(piedata5);
+    section
+      .enter()
+      .append('path')
+      .attr('d', segments)
+      .attr('fill', (d) => colors(d.data.letter));
+    let content = d3
+      .selectAll('.gcircle5')
+      .selectAll('text')
+      .data(piedata5)
+      .join('text')
+      .attr('transform', (d) => `translate(${segments.centroid(d)})`)
+      .call((text) =>
+        text
+          .append('tspan')
+          .attr('y', '-0.4em')
+          .attr('font-weight', 'bold')
+          .text((d) => d.data.letter)
+      )
+      .call((text) =>
+        text
+          .filter((d) => d.endAngle - d.startAngle > 0.25)
+          .append('tspan')
+          .attr('x', 0)
+          .attr('y', '0.7em')
+          .attr('fill-opacity', 0.7)
+          .attr('fill', 'white')
+          .text((d) => d.data.frequency.toLocaleString())
+      );
+  }, [numbers5]);
+  // // //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const pieCircle6 = useEffect(() => {
+    let list = document.getElementById('pieCircle6');
+    list.innerHTML = '';
+    let width = 500;
+    let height = 500;
+    let colors = d3.scaleOrdinal(d3.schemeDark2);
+    let svg = d3
+      .select(list)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height);
+    let piedata6 = d3
+      .pie()
+      .sort(null)
+      .value((d) => d.frequency)(data6);
+    let segments = d3
+      .arc()
+      .innerRadius(0)
+      .outerRadius(200)
+      .padAngle(0.05)
+      .padRadius(50);
+    let section = svg
+      .append('g')
+      .attr('class', 'gcircle6')
+      .attr('transform', 'translate(250,250)')
+      .selectAll('path')
+      .data(piedata6);
+    section
+      .enter()
+      .append('path')
+      .attr('d', segments)
+      .attr('fill', (d) => colors(d.data.letter));
+    let content = d3
+      .selectAll('.gcircle6')
+      .selectAll('text')
+      .data(piedata6)
+      .join('text')
+      .attr('transform', (d) => `translate(${segments.centroid(d)})`)
+      .call((text) =>
+        text
+          .append('tspan')
+          .attr('y', '-0.4em')
+          .attr('font-weight', 'bold')
+          .text((d) => d.data.letter)
+      )
+      .call((text) =>
+        text
+          .filter((d) => d.endAngle - d.startAngle > 0.25)
+          .append('tspan')
+          .attr('x', 0)
+          .attr('y', '0.7em')
+          .attr('fill-opacity', 0.7)
+          .attr('fill', 'white')
+          .text((d) => d.data.frequency.toLocaleString())
+      );
+  }, [numbers6]);
+
   return (
     <div>
       <Link to={`/`}>
@@ -593,16 +1051,52 @@ const Profile = (props) => {
           style={{ width: '100px' }}
         ></img>
       </div>
-      <div id="chart" ref={myRef}></div>
-      <div id="chart2" ref={myRef2}></div>
-      <div id="chart3" ref={myRef3}></div>
-      <div id="chart4" ref={myRef4}></div>
+      <div className="barChart">
+        <label className="barChartL">Bar Chart 1</label>
+        <label className="barChartL">Bar Chart 2</label>
+        <label className="barChartL">Bar Chart 3</label>
+      </div>
+      <div className="barChart">
+        <div id="barChart1" ref={barChart1}></div>
+        <div id="barChart2" ref={barChart2}></div>
+        <div id="barChart3" ref={barChart3}></div>
+      </div>
+      <div className="barChart">
+        <label className="barChartL">Bar Chart 4</label>
+        <label className="barChartL">Bar Chart 5</label>
+        <label className="barChartL">Bar Chart 6</label>
+      </div>
+      <div className="barChart">
+        <div id="barChart4" ref={barChart4}></div>
+        <div id="barChart5" ref={barChart5}></div>
+        <div id="barChart6" ref={barChart6}></div>
+      </div>
+      <div className="barChart">
+        <label className="barChartL">Number 1</label>
+        <label className="barChartL">Number 2</label>
+        <label className="barChartL">Number 3</label>
+      </div>
+      <div className="barChart">
+        <div id="pieCircle1" ref={pieCircle1}></div>
+        <div id="pieCircle2" ref={pieCircle2}></div>
+        <div id="pieCircle3" ref={pieCircle3}></div>
+      </div>
+      <div className="barChart">
+        <label className="barChartL">Number 4</label>
+        <label className="barChartL">Number 5</label>
+        <label className="barChartL">Number 6</label>
+      </div>
+      <div className="barChart">
+        <div id="pieCircle4" ref={pieCircle4}></div>
+        <div id="pieCircle5" ref={pieCircle5}></div>
+        <div id="pieCircle6" ref={pieCircle6}></div>
+      </div>
       <label htmlFor="Draw">Display Draw</label>
       <form>
         <input
           id="draw"
           // value={' '}
-          placeholder="Last Draw's"
+          placeholder="Enter Number of Draw's Here"
           onChange={(e) => {
             setNumberOfDraw(e.target.value);
           }}
